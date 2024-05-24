@@ -1,10 +1,9 @@
-import Sidebar from "@/components/sidebar";
+import Sidebar from "./_components/sidebar";
 import React from "react";
 
 const Page = () => {
   return (
     <div className="h-screen overflow-hidden">
-      hi
       <Sidebar id={"params.agencyId"} type="agency" />
       <div className="md:pl-[300px]">
         hello
