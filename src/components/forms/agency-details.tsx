@@ -96,9 +96,6 @@ const AgencyDetails = ({ data }: Props) => {
   }, [data]);
 
   const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
-    console.log("====================================");
-    console.log("here");
-    console.log("====================================");
     try {
       let newUserData;
       let custId;
@@ -124,9 +121,6 @@ const AgencyDetails = ({ data }: Props) => {
             state: values.zipCode,
           },
         };
-        console.log("====================================");
-        console.log("here");
-        console.log("====================================");
 
         // const customerResponse = await fetch('/api/stripe/create-customer', {
         //   method: 'POST',
@@ -140,16 +134,10 @@ const AgencyDetails = ({ data }: Props) => {
         // custId = customerData.customerId
       }
 
-      console.log("====================================");
-      console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
       newUserData = await initUser({ role: "AGENCY_OWNER" });
-      console.log({ newUserData });
-      console.log("====================================");
-      console.log("here");
       // && !custId
       if (!data?.customerId) {
-        // return;
-        const response = await upsertAgency({
+        await upsertAgency({
           id: data?.id ? data.id : v4(),
           customerId: data?.customerId || custId || "",
           address: values.address,
@@ -167,19 +155,14 @@ const AgencyDetails = ({ data }: Props) => {
           connectAccountId: "",
           goal: 5,
         });
+        toast({
+          title: "Created Agency",
+        });
+        // if (data?.customerId) return router.refresh();
+        // if(response) {
+        // }
+        return router.refresh()
       }
-
-      // console.log("====================================");
-      // console.log("{response}");
-      // console.log({ response });
-      // console.log("====================================");
-      // toast({
-      //   title: "Created Agency",
-      // });
-      // if (data?.id) return router.refresh();
-      // if (response) {
-      //   return router.refresh();
-      // }
     } catch (error) {
       console.log(error);
       toast({

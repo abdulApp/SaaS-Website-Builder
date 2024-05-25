@@ -29,10 +29,6 @@ export const getAuthUserDetails = async () => {
     return;
   }
 
-  console.log("====================================");
-  console.log({ user });
-  console.log("====================================");
-
   const userData = await db.user.findUnique({
     where: {
       email: user.emailAddresses[0].emailAddress,
@@ -51,15 +47,6 @@ export const getAuthUserDetails = async () => {
       Permissions: true,
     },
   });
-
-  console.log("====================================");
-  console.log({ userData });
-  console.log("====================================");
-  console.log("====================================");
-  console.log("====================================");
-  console.log("====================================");
-  console.log("====================================");
-  console.log("====================================");
 
   return userData;
 };
@@ -165,10 +152,6 @@ export const verifyAndAcceptInvitation = async () => {
     },
   });
 
-  console.log("====================================");
-  console.log({ invitationExists });
-  console.log("====================================");
-
   if (invitationExists) {
     const userDetails = await createTeamUser(invitationExists.agencyId, {
       email: invitationExists.email,
@@ -242,11 +225,6 @@ export const initUser = async (newUser: Partial<User>) => {
       role: newUser.role || "SUBACCOUNT_USER",
     },
   });
-  console.log("====================================");
-  console.log("initUser");
-  console.log({ userData });
-  console.log("++++++++++++++++++++++++++++++++++++");
-  console.log("====================================");
 
   await clerkClient.users.updateUserMetadata(user.id, {
     privateMetadata: {
@@ -258,9 +236,7 @@ export const initUser = async (newUser: Partial<User>) => {
 };
 
 export const upsertAgency = async (agency: Agency, price?: Plan) => {
-  console.log('====================================');
-  console.log("here");
-  console.log('====================================');
+  
   if (!agency.companyEmail) return null;
   try {
     const agencyDetails = await db.agency.upsert({
@@ -309,10 +285,7 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
         },
       },
     });
-    console.log("====================================");
-    console.log("{ agencyDetails }");
-    console.log({ agencyDetails });
-    console.log("====================================");
+    
     return agencyDetails;
   } catch (error) {
     console.log(error);
