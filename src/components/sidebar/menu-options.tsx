@@ -65,11 +65,7 @@ const MenuOptions = ({
 
   return (
     <>
-      <Sheet
-        modal={false}
-        // open={true}
-        {...openState}
-      >
+      <Sheet modal={false} {...openState}>
         <SheetTrigger
           asChild
           className="absolute left-4 top-4 z-[100] md:!hidden felx"
@@ -133,7 +129,6 @@ const MenuOptions = ({
                           <CommandGroup heading="Agency">
                             <CommandItem
                               // key={user?.Agency?.id}
-                              // hi
                               className="!bg-transparent my-2 text-primary broder-[1px] border-border p-2 rounded-md hover:!bg-muted cursor-pointer transition-all"
                             >
                               {defaultOpen ? (
@@ -267,6 +262,41 @@ const MenuOptions = ({
                 }
               </PopoverContent>
             </Popover>
+            <p className="text-muted-foreground text-xs mb-2">MENU LINKS</p>
+            <Separator className="mb-4" />
+            <nav className="relative">
+              <Command className="rounded-lg overflow-visible bg-transparent">
+                <CommandInput placeholder="Search..." />
+                <CommandList className="py-4 overflow-visible">
+                  <CommandEmpty>No Results Found</CommandEmpty>
+                  <CommandGroup className="overflow-visible">
+                    {sidebarOpt.map((sidebarOptions) => {
+                      let val;
+                      const result = icons.find(
+                        (icon) => icon.value === sidebarOptions.icon
+                      );
+                      if (result) {
+                        val = <result.path />;
+                      }
+                      return (
+                        <CommandItem
+                          key={sidebarOptions.id}
+                          className="md:w-[320px] w-full"
+                        >
+                          <Link
+                            href={sidebarOptions.link}
+                            className="flex items-center gap-2 hover:bg-transparent rounded-md transition-all md:w-full w-[320px]"
+                          >
+                            {val}
+                            <span>{sidebarOptions.name}</span>
+                          </Link>
+                        </CommandItem>
+                      );
+                    })}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </nav>
           </div>
         </SheetContent>
       </Sheet>
