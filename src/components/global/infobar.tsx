@@ -111,6 +111,7 @@ const InfoBar = ({ notifications, subAccountId, className, role }: Props) => {
                   mb-4
                 >
                   You have no notifications
+                  <br />
                 </div>
               )}
             </SheetContent>
