@@ -121,7 +121,6 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
                   href={`/agency/${params.agencyId}/settings`}
                 >
                   Start
-                  {/* hi */}
                 </Link>
               )}
             </div>
