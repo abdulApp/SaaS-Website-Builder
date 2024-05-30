@@ -47,6 +47,25 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
 
   let connectedStripeAccount = false;
 
+  
+  if (searchParams.code) {
+    if (!agencyDetails.connectAccountId) {
+      try {
+        const response = await stripe.oauth.token({
+          grant_type: 'authorization_code',
+          code: searchParams.code,
+        })
+        await db.agency.update({
+          where: { id: params.agencyId },
+          data: { connectAccountId: response.stripe_user_id },
+        })
+        connectedStripeAccount = true
+      } catch (error) {
+        console.log('🔴 Could not connect stripe account')
+      }
+    }
+  }
+  
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-full h-full max-w-[800px]">
@@ -85,6 +104,7 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
                   dashboard.
                 </p>
               </div>
+              <Button>Start</Button>
               {/* {agencyDetails.connectAccountId || connectedStripeAccount ? (
                 <CheckCircleIcon
                   size={50}
