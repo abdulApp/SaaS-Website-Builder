@@ -29,6 +29,7 @@ interface DataTableProps<TData, TValue> {
   actionButtonText?: React.ReactNode
   modalChildren?: React.ReactNode
 }
+
 export default function DataTable<TData, TValue>({
   columns,
   data,
@@ -43,6 +44,7 @@ export default function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   })
+  
   return (
     <>
       <div className="flex items-center justify-between">
