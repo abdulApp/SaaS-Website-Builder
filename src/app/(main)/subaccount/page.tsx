@@ -57,21 +57,28 @@ const SubAccountMainPage = async ({ searchParams }: Props) => {
 
   const user = await getAuthUserDetails();
   if (!user) return;
+  // console.log("====================================");
+  // console.log({ user });
+  // console.log("====================================");
 
   const getFirstSubaccountWithAccess = user.Permissions.find(
     (permission) => permission.access === true
   );
 
   if (searchParams.state) {
-    const statePath = searchParams.state.split('___')[0]
-    const stateSubaccountId = searchParams.state.split('___')[1]
-    if (!stateSubaccountId) return <Unauthorized />
+    const statePath = searchParams.state.split("___")[0];
+    const stateSubaccountId = searchParams.state.split("___")[1];
+    if (!stateSubaccountId) return <Unauthorized />;
     return redirect(
       `/subaccount/${stateSubaccountId}/${statePath}?code=${searchParams.code}`
-    )
+    );
   }
 
-  return <div>SubAccountMainPage</div>;
+  if (getFirstSubaccountWithAccess) {
+    return redirect(`/subaccount/${getFirstSubaccountWithAccess.subAccountId}`);
+  }
+
+  return <Unauthorized />;
 };
 
 export default SubAccountMainPage;

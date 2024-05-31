@@ -24,6 +24,8 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 
 export const getAuthUserDetails = async () => {
+  console.log(` insaid getAuthUserDetails`);
+  
   const user = await currentUser();
   if (!user) {
     return;
@@ -47,6 +49,13 @@ export const getAuthUserDetails = async () => {
       Permissions: true,
     },
   });
+
+  console.log('====================================');
+  console.log("userData",{userData});
+  console.log('====================================');
+  console.log(userData?.Permissions?.map((permission) => permission.name));
+
+  
 
   return userData;
 };
