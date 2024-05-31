@@ -33,6 +33,11 @@ const SettingsPage = async ({ params }: Props) => {
   if (!agencyDetails) return null;
 
   const subAccounts = agencyDetails.SubAccount;
+  console.log("====================================");
+  console.log({ subAccounts });
+  console.log({ agencyDetails });
+
+  console.log("====================================");
 
   return (
     <div className="flex lg:!flex-row flex-col gap-4">
