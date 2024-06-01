@@ -57,9 +57,6 @@ const SubAccountMainPage = async ({ searchParams }: Props) => {
 
   const user = await getAuthUserDetails();
   if (!user) return;
-  // console.log("====================================");
-  // console.log({ user });
-  // console.log("====================================");
 
   const getFirstSubaccountWithAccess = user.Permissions.find(
     (permission) => permission.access === true

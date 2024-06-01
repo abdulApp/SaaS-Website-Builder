@@ -58,10 +58,7 @@ type Props = {
 }
 
 const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
-  console.log('====================================');
-  console.log("{subAccounts}");
-  console.log({subAccounts});
-  console.log('====================================');
+  
   const [subAccountPermissions, setSubAccountsPermissions] =
     useState<UserWithPermissionsAndSubAccounts | null>(null)
 
@@ -212,13 +209,6 @@ const UserDetails = ({ id, type, subAccounts, userData }: Props) => {
       console.log('Error could not submit')
     }
   }
-  
-
-  
-  console.log('====================================');
-  console.log("{subAccounts}");
-  console.log({subAccounts});
-  console.log('====================================');
 
   return (
     <Card className="w-full">

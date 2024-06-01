@@ -49,12 +49,6 @@ export const getAuthUserDetails = async () => {
     },
   });
 
-  // console.log('====================================');
-  // console.log("userData",{userData});
-  // console.log('====================================');
-
-  
-
   return userData;
 };
 

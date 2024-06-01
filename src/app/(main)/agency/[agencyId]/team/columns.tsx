@@ -162,9 +162,6 @@ const CellActions: React.FC<CellActionsProps> = ({ rowData }) => {
   const router = useRouter()
   if (!rowData) return
   if (!rowData.Agency) return
-  console.log('====================================');
-  console.log({rowData});
-  console.log('====================================');
 
   return (
     <AlertDialog>
