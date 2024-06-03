@@ -139,6 +139,7 @@ const PipelineTicket = ({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
+            // className=' border-4 border-red-600'
           >
             <AlertDialog>
               <DropdownMenu>
