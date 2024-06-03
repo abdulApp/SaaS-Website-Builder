@@ -77,7 +77,7 @@ const PipelineInfoBar = ({ pipelineId, pipelines, subAccountId }: Props) => {
                       }}
                     > */}
                     <div
-                      className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-primary aria-selected:text-white aria-selected:font-bold  data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50"
+                      className="relative hover:bg-[#004be0] cursor-pointer flex select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-primary aria-selected:text-white aria-selected:font-bold  data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50"
                       key={pipeline.id}
                       // value={pipeline.id}
                       onSelect={(currentValue: any) => {

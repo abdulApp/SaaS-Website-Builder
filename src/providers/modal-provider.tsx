@@ -10,12 +10,12 @@ interface ModalProviderProps {
 export type ModalData = {
   user?: User
   agency?: Agency
-  // ticket?: TicketDetails[0]
-  // contact?: Contact
-  // plans?: {
-  //   defaultPriceId: Plan
-  //   plans: PricesList['data']
-  // }
+  ticket?: TicketDetails[0]
+  contact?: Contact
+  plans?: {
+    defaultPriceId: Plan
+    plans: PricesList['data']
+  }
 }
 type ModalContextType = {
   data: ModalData
