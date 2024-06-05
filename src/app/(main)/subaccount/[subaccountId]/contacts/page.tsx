@@ -14,12 +14,16 @@ import { Contact, SubAccount, Ticket } from "@prisma/client";
 import { format } from "date-fns/format";
 import React from "react";
 import CraeteContactButton from "./_components/create-contact-btn";
+import { Decimal } from "@prisma/client/runtime/library";
 
 type Props = {
   params: { subaccountId: string };
 };
 
 const ContactPage = async ({ params }: Props) => {
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  console.log("ContactPage");
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
   type SubAccountWithContacts = SubAccount & {
     Contact: (Contact & { Ticket: Ticket[] })[];
   };
@@ -46,6 +50,9 @@ const ContactPage = async ({ params }: Props) => {
   })) as SubAccountWithContacts;
 
   const allContacts = contacts.Contact;
+  console.log("====================================");
+  console.log({ allContacts });
+  console.log("====================================");
 
   const formatTotal = (tickets: Ticket[]) => {
     if (!tickets || !tickets.length) return "$0.00";
@@ -61,7 +68,7 @@ const ContactPage = async ({ params }: Props) => {
 
     return amt.format(laneAmt);
   };
-  
+
   return (
     <BlurPage>
       <h1 className="text-4xl p-4">Contacts</h1>
@@ -77,7 +84,7 @@ const ContactPage = async ({ params }: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody className="font-medium truncate">
-          {allContacts.map((contact) => (
+          {allContacts.map((contact: { id: React.Key | null | undefined; name: string; email: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; Ticket: { id: string; name: string; createdAt: Date; updatedAt: Date; laneId: string; order: number; value: Decimal | null; description: string | null; customerId: string | null; assignedUserId: string | null; }[]; createdAt: string | number | Date; }) => (
             <TableRow key={contact.id}>
               <TableCell>
                 <Avatar>

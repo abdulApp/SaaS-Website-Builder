@@ -11,6 +11,9 @@ type Props = {
 
 const CraeteContactButton = ({ subaccountId }: Props) => {
   const { setOpen } = useModal()
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  console.log(subaccountId);
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
   const handleCreateContact = async () => {
     setOpen(
