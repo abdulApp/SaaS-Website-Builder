@@ -7,6 +7,7 @@ import {
   CommandEmpty,
   CommandGroup,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -74,32 +75,24 @@ const PipelineInfoBar = ({ pipelineId, pipelines, subAccountId }: Props) => {
                     key={pipeline.id}
                     href={`/subaccount/${subAccountId}/pipelines/${pipeline.id}`}
                   >
-                    {/* <CommandItem
-                      key={pipeline.id}
-                      value={pipeline.id}
-                      onSelect={(currentValue) => {
-                        setValue(currentValue)
-                        setOpen(false)
-                      }}
-                    > */}
-                    <div
-                      className="relative hover:bg-[#004be0] cursor-pointer flex select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-primary aria-selected:text-white aria-selected:font-bold  data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50"
-                      key={pipeline.id}
-                      // value={pipeline.id}
-                      onSelect={(currentValue: any) => {
-                        setValue(currentValue)
-                        setOpen(false)
-                      }}
-                    >
-                      <Check
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          value === pipeline.id ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                      {pipeline.name}
-                    </div>
-                    {/* </CommandItem> */}
+                    <CommandList>
+                      <CommandItem
+                        key={pipeline.id}
+                        value={pipeline.id}
+                        onSelect={(currentValue) => {
+                          setValue(currentValue);
+                          setOpen(false);
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            value === pipeline.id ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                        {pipeline.name}
+                      </CommandItem>
+                    </CommandList>
                   </Link>
                 ))}
                 <Button

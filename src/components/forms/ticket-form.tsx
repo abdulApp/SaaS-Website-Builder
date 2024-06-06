@@ -1,11 +1,3 @@
-// console.log("====================================");
-// console.log("TicketForm");
-// console.log("====================================");
-// if (defaultData.ticket) {
-//   console.log("~~~====================================");
-//   console.log({defaultData});
-//   console.log("~~~====================================");
-// }
 "use client";
 import {
   getSubAccountTeamMembers,
@@ -53,6 +45,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "../ui/command";
 import { cn } from "@/lib/utils";
 import Loading from "../global/loading";
@@ -109,6 +102,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
 
       const fetchData = async () => {
         const response = await searchContacts(
+          //@ts-ignore
           defaultData.ticket?.Customer?.name
         );
         setContactList(response);
@@ -259,14 +253,9 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
                   role="combobox"
                   className="justify-between"
                 >
-                  {contact.length != 0 ? (
-                    <>{contactList.find((c) => c.id === contact)?.name}</>
-                  ) : (
-                    ""
-                  )}
-                  {/* {
+                  {contact
                     ? contactList.find((c) => c.id === contact)?.name
-                    : "Select Customer..."} */}
+                    : "Select Customer..."}
                   <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </PopoverTrigger>
@@ -293,25 +282,27 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
                   />
                   <CommandEmpty>No Customer found.</CommandEmpty>
                   <CommandGroup>
-                    {contactList.map((c) => (
-                      <CommandItem
-                        key={c.id}
-                        value={c.id}
-                        onSelect={(currentValue) => {
-                          setContact(
-                            currentValue === contact ? "" : currentValue
-                          );
-                        }}
-                      >
-                        {c.name}
-                        <CheckIcon
-                          className={cn(
-                            "ml-auto h-4 w-4",
-                            contact === c.id ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                      </CommandItem>
-                    ))}
+                    <CommandList>
+                      {contactList.map((c) => (
+                        <CommandItem
+                          key={c.id}
+                          value={c.id}
+                          onSelect={(currentValue) => {
+                            setContact(
+                              currentValue === contact ? "" : currentValue
+                            );
+                          }}
+                        >
+                          {c.name}
+                          <CheckIcon
+                            className={cn(
+                              "ml-auto h-4 w-4",
+                              contact === c.id ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandList>
                   </CommandGroup>
                 </Command>
               </PopoverContent>
