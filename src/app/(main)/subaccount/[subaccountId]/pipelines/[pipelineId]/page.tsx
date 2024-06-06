@@ -27,7 +27,7 @@ type Props = {
 
 const PipelinePage = async ({ params }: Props) => {
   const pipelineDetails = await getPipelineDetails(params.pipelineId);
-  
+
   if (!pipelineDetails)
     return redirect(`/subaccount/${params.subaccountId}/pipelines`);
 

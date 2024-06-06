@@ -40,11 +40,6 @@ const PipelineView = ({
     setAllLanes(lanes);
   }, [lanes]);
 
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-  console.log("{allLanes}");
-  console.log({lanes});
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-
   const ticketsFromAllLanes: TicketAndTags[] = [];
   lanes.forEach((item) => {
     item.Tickets.forEach((i) => {

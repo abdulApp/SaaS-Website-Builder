@@ -1,6 +1,5 @@
 "use client";
 import CreateLaneForm from "@/components/forms/lane-form";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,7 +28,6 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { Edit, MoreVertical, PlusCircleIcon, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction, useMemo } from "react";
-// import PipelineTicket from './pipeline-ticket'
 import CustomModal from "@/components/global/custom-modal";
 import TicketForm from "@/components/forms/ticket-form";
 import PipelineTicket from "./pipeline-ticket";

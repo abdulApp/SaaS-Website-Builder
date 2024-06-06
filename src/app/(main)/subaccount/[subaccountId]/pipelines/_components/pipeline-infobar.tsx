@@ -20,6 +20,12 @@ import { Check, ChevronsUpDown, Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
+// type PipelineInfoBarProps = {
+//   subAccountId: string;
+//   pipelines: ReadonlyArray<Pipeline>;
+//   pipelineId: string;
+// };
+
 type Props = {
   subAccountId: string;
   pipelines: Pipeline[];
