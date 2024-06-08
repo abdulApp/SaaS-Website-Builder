@@ -19,7 +19,6 @@ import {
 } from './queries'
 import { db } from './db'
 import { z } from 'zod'
-//@ts-ignore
 import Stripe from 'stripe'
 
 export type NotificationWithUser =
