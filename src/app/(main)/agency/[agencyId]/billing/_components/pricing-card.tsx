@@ -1,7 +1,7 @@
 'use client'
-import SubscriptionFormWrapper from '../../../../../../components/forms/subscription-form/subscription-form-wrapper'
-import CustomModal from '../../../../../../components/global/custom-modal'
-import { Button } from '../../../../../../components/ui/button'
+import SubscriptionFormWrapper from '@/components/forms/subscription-form/subscription-form-wrapper'
+import CustomModal from '@/components/global/custom-modal'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -9,9 +9,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../../../../../../components/ui/card'
-import { PricesList } from '../../../../../../lib/types'
-import { useModal } from '../../../../../../providers/modal-provider'
+} from '@/components/ui/card'
+import { PricesList } from '@/lib/types'
+import { useModal } from '@/providers/modal-provider'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
