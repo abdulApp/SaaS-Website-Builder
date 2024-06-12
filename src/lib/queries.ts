@@ -24,7 +24,6 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 
 export const getAuthUserDetails = async () => {
-  
   const user = await currentUser();
   if (!user) {
     return;
@@ -237,7 +236,6 @@ export const initUser = async (newUser: Partial<User>) => {
 };
 
 export const upsertAgency = async (agency: Agency, price?: Plan) => {
-  
   if (!agency.companyEmail) return null;
   try {
     const agencyDetails = await db.agency.upsert({
@@ -286,7 +284,7 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
         },
       },
     });
-    
+
     return agencyDetails;
   } catch (error) {
     console.log(error);
