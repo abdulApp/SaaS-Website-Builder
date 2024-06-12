@@ -6,6 +6,17 @@ import { FunnelPage } from '@prisma/client'
 
 export type DeviceTypes = 'Desktop' | 'Mobile' | 'Tablet'
 
+/**
+ * The structure of each element in the editor.
+ * Each element has an ID, styles, name, type, and content.
+ * The content can be either an array of EditorElements, which will be treated as nested elements, or an object with properties for a single element.
+ * The object can have the following properties:
+ * - href: The URL of a link.
+ * - innerText: The text that will be displayed if the element is not a link.
+ * - src: The URL of an image to display.
+ *
+ * The type can be one of the values from the EditorBtns enum.
+ */
 export type EditorElement = {
   id: string
   styles: React.CSSProperties
