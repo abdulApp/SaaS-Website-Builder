@@ -32,6 +32,7 @@ export default function RootLayout({
           <ModalProvider>
             {children}
             <Toaster />
+            <SonnarToaster />
           </ModalProvider>
         </ThemeProvider>
       </body>

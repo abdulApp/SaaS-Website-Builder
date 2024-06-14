@@ -2,9 +2,9 @@ import { db } from '@/lib/db'
 import EditorProvider from '@/providers/editor/editor-provider'
 import { redirect } from 'next/navigation'
 import React from 'react'
-// import FunnelEditorNavigation from './_components/funnel-editor-navigation'
-// import FunnelEditorSidebar from './_components/funnel-editor-sidebar'
-// import FunnelEditor from './_components/funnel-editor'
+import FunnelEditorNavigation from './_components/funnel-editor-navigation'
+import FunnelEditorSidebar from './_components/funnel-editor-sidebar'
+import FunnelEditor from './_components/funnel-editor'
 
 type Props = {
   params: {
@@ -33,18 +33,16 @@ const Page = async ({ params }: Props) => {
         funnelId={params.funnelId}
         pageDetails={funnelPageDetails}
       >
-        <p>FunnelEditorNavigation</p>
-        {/* <FunnelEditorNavigation
+        <FunnelEditorNavigation
           funnelId={params.funnelId}
           funnelPageDetails={funnelPageDetails}
           subaccountId={params.subaccountId}
-        /> */}
+        />
         <div className="h-full flex justify-center">
-          <p>FunnelEditor</p>
-          {/* <FunnelEditor funnelPageId={params.funnelPageId} /> */}
+          <FunnelEditor funnelPageId={params.funnelPageId} />
         </div>
         <p>FunnelEditorSidebar</p>
-        {/* <FunnelEditorSidebar subaccountId={params.subaccountId} /> */}
+        <FunnelEditorSidebar subaccountId={params.subaccountId} />
       </EditorProvider>
     </div>
   )
