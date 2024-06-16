@@ -1,54 +1,54 @@
-'use client'
-import Loading from '@/components/global/loading'
-import { Badge } from '@/components/ui/badge'
-import { toast } from '@/components/ui/use-toast'
-import { EditorBtns } from '@/lib/constants'
-import { getFunnel, getSubaccountDetails } from '@/lib/queries'
-import { getStripe } from '@/lib/stripe/stripe-client'
-import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
+"use client";
+import Loading from "@/components/global/loading";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "@/components/ui/use-toast";
+import { EditorBtns } from "@/lib/constants";
+import { getFunnel, getSubaccountDetails } from "@/lib/queries";
+import { getStripe } from "@/lib/stripe/stripe-client";
+import { EditorElement, useEditor } from "@/providers/editor/editor-provider";
 import {
   EmbeddedCheckout,
   EmbeddedCheckoutProvider,
-} from '@stripe/react-stripe-js'
-import clsx from 'clsx'
-import { Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import React, { useEffect, useMemo, useState } from 'react'
+} from "@stripe/react-stripe-js";
+import clsx from "clsx";
+import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useMemo, useState } from "react";
 
 type Props = {
-  element: EditorElement
-}
+  element: EditorElement;
+};
 
 const Checkout = (props: Props) => {
-  const { dispatch, state, subaccountId, funnelId, pageDetails } = useEditor()
-  const router = useRouter()
-  const [clientSecret, setClientSecret] = useState('')
-  const [livePrices, setLivePrices] = useState([])
-  const [subAccountConnectAccId, setSubAccountConnectAccId] = useState('')
-  const options = useMemo(() => ({ clientSecret }), [clientSecret])
-  const styles = props.element.styles
+  const { dispatch, state, subaccountId, funnelId, pageDetails } = useEditor();
+  const router = useRouter();
+  const [clientSecret, setClientSecret] = useState("");
+  const [livePrices, setLivePrices] = useState([]);
+  const [subAccountConnectAccId, setSubAccountConnectAccId] = useState("");
+  const options = useMemo(() => ({ clientSecret }), [clientSecret]);
+  const styles = props.element.styles;
 
   useEffect(() => {
-    if (!subaccountId) return
+    if (!subaccountId) return;
     const fetchData = async () => {
-      const subaccountDetails = await getSubaccountDetails(subaccountId)
+      const subaccountDetails = await getSubaccountDetails(subaccountId);
       if (subaccountDetails) {
-        if (!subaccountDetails.connectAccountId) return
-        setSubAccountConnectAccId(subaccountDetails.connectAccountId)
+        if (!subaccountDetails.connectAccountId) return;
+        setSubAccountConnectAccId(subaccountDetails.connectAccountId);
       }
-    }
-    fetchData()
-  }, [subaccountId])
+    };
+    fetchData();
+  }, [subaccountId]);
 
   useEffect(() => {
     if (funnelId) {
       const fetchData = async () => {
-        const funnelData = await getFunnel(funnelId)
-        setLivePrices(JSON.parse(funnelData?.liveProducts || '[]'))
-      }
-      fetchData()
+        const funnelData = await getFunnel(funnelId);
+        setLivePrices(JSON.parse(funnelData?.liveProducts || "[]"));
+      };
+      fetchData();
     }
-  }, [funnelId])
+  }, [funnelId]);
 
   useEffect(() => {
     if (livePrices.length && subaccountId && subAccountConnectAccId) {
@@ -58,91 +58,91 @@ const Checkout = (props: Props) => {
             subAccountConnectAccId,
             prices: livePrices,
             subaccountId,
-          })
+          });
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_URL}api/stripe/create-checkout-session`,
             {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
               body,
             }
-          )
-          const responseJson = await response.json()
-          console.log(responseJson)
-          if (!responseJson) throw new Error('somethign went wrong')
+          );
+          const responseJson = await response.json();
+          console.log(responseJson);
+          if (!responseJson) throw new Error("somethign went wrong");
           if (responseJson.error) {
-            throw new Error(responseJson.error)
+            throw new Error(responseJson.error);
           }
           if (responseJson.clientSecret) {
-            setClientSecret(responseJson.clientSecret)
+            setClientSecret(responseJson.clientSecret);
           }
         } catch (error) {
           toast({
             open: true,
-            className: 'z-[100000]',
-            variant: 'destructive',
-            title: 'Oppse!',
+            className: "z-[100000]",
+            variant: "destructive",
+            title: "Oppse!",
             //@ts-ignore
             description: error.message,
-          })
+          });
         }
-      }
-      getClientSercet()
+      };
+      getClientSercet();
     }
-  }, [livePrices, subaccountId, subAccountConnectAccId])
+  }, [livePrices, subaccountId, subAccountConnectAccId]);
 
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
-    if (type === null) return
-    e.dataTransfer.setData('componentType', type)
-  }
+    if (type === null) return;
+    e.dataTransfer.setData("componentType", type);
+  };
 
   const handleOnClickBody = (e: React.MouseEvent) => {
-    e.stopPropagation()
+    e.stopPropagation();
     dispatch({
-      type: 'CHANGE_CLICKED_ELEMENT',
+      type: "CHANGE_CLICKED_ELEMENT",
       payload: {
         elementDetails: props.element,
       },
-    })
-  }
+    });
+  };
 
   const goToNextPage = async () => {
-    if (!state.editor.liveMode) return
-    const funnelPages = await getFunnel(funnelId)
-    if (!funnelPages || !pageDetails) return
+    if (!state.editor.liveMode) return;
+    const funnelPages = await getFunnel(funnelId);
+    if (!funnelPages || !pageDetails) return;
     if (funnelPages.FunnelPages.length > pageDetails.order + 1) {
-      console.log(funnelPages.FunnelPages.length, pageDetails.order + 1)
+      console.log(funnelPages.FunnelPages.length, pageDetails.order + 1);
       const nextPage = funnelPages.FunnelPages.find(
         (page) => page.order === pageDetails.order + 1
-      )
-      if (!nextPage) return
+      );
+      if (!nextPage) return;
       router.replace(
         `${process.env.NEXT_PUBLIC_SCHEME}${funnelPages.subDomainName}.${process.env.NEXT_PUBLIC_DOMAIN}/${nextPage.pathName}`
-      )
+      );
     }
-  }
+  };
 
   const handleDeleteElement = () => {
     dispatch({
-      type: 'DELETE_ELEMENT',
+      type: "DELETE_ELEMENT",
       payload: { elementDetails: props.element },
-    })
-  }
+    });
+  };
 
   return (
     <div
       style={styles}
       draggable
-      onDragStart={(e) => handleDragStart(e, 'contactForm')}
+      onDragStart={(e) => handleDragStart(e, "contactForm")}
       onClick={handleOnClickBody}
       className={clsx(
-        'p-[2px] w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center',
+        "p-[2px] w-full m-[5px] relative text-[16px] transition-all flex items-center justify-center",
         {
-          '!border-blue-500':
+          "!border-blue-500":
             state.editor.selectedElement.id === props.element.id,
 
-          '!border-solid': state.editor.selectedElement.id === props.element.id,
-          'border-dashed border-[1px] border-slate-300': !state.editor.liveMode,
+          "!border-solid": state.editor.selectedElement.id === props.element.id,
+          "border-dashed border-[1px] border-slate-300": !state.editor.liveMode,
         }
       )}
     >
@@ -185,7 +185,7 @@ const Checkout = (props: Props) => {
           </div>
         )}
     </div>
-  )
-}
+  );
+};
 
-export default Checkout
+export default Checkout;
